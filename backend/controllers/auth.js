@@ -10,14 +10,14 @@ async function login(req, res) {
 		const userData = await user.findOne({ where: { email } });
 
 		if (!userData) {
-			return res.status(400).json({
+			return res.status(401).json({
 				error: 'User data not found',
 			});
 		}
 
 		//Check if the password is correct
 		if (!bcrypt.compareSync(password, userData.password)) {
-			return res.status(400).json({
+			return res.status(401).json({
 				error: 'User data is not correct',
 			});
 		}
@@ -26,7 +26,6 @@ async function login(req, res) {
 		const token = await generateJWT(userData.id);
 
 		res.status(200).json({
-			userData,
 			token,
 		});
 	} catch (err) {
@@ -45,7 +44,7 @@ async function create(req, res) {
 		const userData = await user.findOne({ where: { email } });
 
 		if (userData) {
-			return res.status(400).json({
+			return res.status(401).json({
 				error: 'User already exists',
 			});
 		}
