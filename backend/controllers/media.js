@@ -132,8 +132,8 @@ async function create(req, res) {
 
 				//Create the media_character association
 				await media_character.create({
-					media_id: characterRecord.id,
-					character_id: mediaRecord.id,
+					media_id: mediaRecord.id,
+					character_id: characterRecord.id,
 				});
 			}
 		}
@@ -210,8 +210,8 @@ async function updateById(req, res) {
 				}
 
 				await media_character.create({
-					media_id: characterRecord.id,
-					character_id: mediaRecord.id,
+					media_id: mediaRecord.id,
+					character_id: characterRecord.id,
 				});
 			}
 		}
