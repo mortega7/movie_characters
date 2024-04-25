@@ -12,5 +12,6 @@ export const AVATAR_STYLES = {
 	width: 40,
 	height: 40,
 	fontSize: '0.75rem',
-	backgroundColor: 'primary.main',
+	border: '1px solid white',
+	borderColor: 'primary.main',
 };

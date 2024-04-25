@@ -1,3 +1,4 @@
+import { Suspense, useEffect, useState } from 'react';
 import {
 	Form,
 	useNavigation,
@@ -25,7 +26,6 @@ import {
 	DETAILS_TITLE_STYLES,
 } from './CharacterDetail.styles';
 import { ERROR_STYLE, STACK_STYLES_FILTER } from './CharactersPage.styles';
-import { Suspense, useEffect, useState } from 'react';
 import { fetchCharacters } from '../../util/fetch';
 
 function CharacterForm({ method, title, character, id }) {
@@ -61,7 +61,7 @@ function CharacterForm({ method, title, character, id }) {
 				)}
 				<Grid container spacing={2} sx={STACK_STYLES_FILTER}>
 					<Grid item sx={{ width: '100%' }}>
-						<Typography paragraph>Name:</Typography>
+						<Typography paragraph>Name *</Typography>
 						<TextField
 							variant="outlined"
 							name="name"
@@ -72,7 +72,7 @@ function CharacterForm({ method, title, character, id }) {
 						/>
 					</Grid>
 					<Grid item sx={{ width: '100%' }}>
-						<Typography paragraph>Image URL:</Typography>
+						<Typography paragraph>Image URL *</Typography>
 						<TextField
 							variant="outlined"
 							name="image"
@@ -84,7 +84,7 @@ function CharacterForm({ method, title, character, id }) {
 						/>
 					</Grid>
 					<Grid item sx={{ width: '50%' }}>
-						<Typography paragraph>Age:</Typography>
+						<Typography paragraph>Age *</Typography>
 						<TextField
 							variant="outlined"
 							name="age"
@@ -95,7 +95,7 @@ function CharacterForm({ method, title, character, id }) {
 						/>
 					</Grid>
 					<Grid item sx={{ width: '50%' }}>
-						<Typography paragraph>Weight:</Typography>
+						<Typography paragraph>Weight *</Typography>
 						<TextField
 							variant="outlined"
 							name="weight"
@@ -106,7 +106,7 @@ function CharacterForm({ method, title, character, id }) {
 						/>
 					</Grid>
 					<Grid item sx={{ width: '100%' }}>
-						<Typography paragraph>History:</Typography>
+						<Typography paragraph>History *</Typography>
 						<TextField
 							variant="outlined"
 							name="history"
@@ -119,7 +119,7 @@ function CharacterForm({ method, title, character, id }) {
 						/>
 					</Grid>
 					<Grid item sx={{ width: '100%' }}>
-						<Typography paragraph>Movies / Series:</Typography>
+						<Typography paragraph>Movies / Series</Typography>
 						<Suspense>
 							<Await resolve={movies}>
 								{(loadedMovies) => (
@@ -197,7 +197,6 @@ export async function action({ request, params }) {
 		method: method,
 		body: characterData,
 	});
-	console.log(characterData, response);
 
 	if (response.status === 400) {
 		return response;

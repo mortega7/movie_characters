@@ -11,7 +11,8 @@ import CharacterForm from './CharacterForm';
 import { useRouteLoaderData } from 'react-router-dom';
 
 function CharacterEditPage() {
-	const data = useRouteLoaderData('character-edit');
+	const id = 'character-edit';
+	const data = useRouteLoaderData(id);
 
 	return (
 		<Box sx={CONTENT_STYLES}>
@@ -23,7 +24,7 @@ function CharacterEditPage() {
 							<CharacterForm
 								title="Edit Character"
 								method="put"
-								id="character-edit"
+								id={id}
 								character={data.character}
 							/>
 						</Paper>
