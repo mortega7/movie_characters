@@ -26,7 +26,6 @@ export const AVATAR_STYLES = {
 	width: { xs: 100, md: 150, lg: 200 },
 	height: { xs: 100, md: 150, lg: 200 },
 	fontSize: '3rem',
-	backgroundColor: 'primary.main',
 	border: '1px solid white',
 	borderColor: 'primary.main',
 };
@@ -96,7 +95,7 @@ export const ERROR_STYLE = {
 	padding: (theme) => theme.spacing(1),
 };
 
-export const CHIP_TEXT = {
+export const CHIP_TEXT_MOVIE = {
 	padding: (theme) => theme.spacing(2.5, 2),
 	borderRadius: '5rem',
 	backgroundColor: 'primary.main',
@@ -104,6 +103,18 @@ export const CHIP_TEXT = {
 	cursor: 'pointer',
 	'&:hover': {
 		backgroundColor: 'primary.main',
+		opacity: 0.8,
+	},
+};
+
+export const CHIP_TEXT_SERIE = {
+	padding: (theme) => theme.spacing(2.5, 2),
+	borderRadius: '5rem',
+	backgroundColor: 'secondary.main',
+	color: 'white',
+	cursor: 'pointer',
+	'&:hover': {
+		backgroundColor: 'secondary.main',
 		opacity: 0.8,
 	},
 };

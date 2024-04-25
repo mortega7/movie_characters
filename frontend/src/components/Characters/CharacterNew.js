@@ -10,6 +10,8 @@ import GoBackButton from '../Layout/GoBackButton';
 import CharacterForm from './CharacterForm';
 
 function CharacterNewPage() {
+	const id = 'character-new';
+
 	return (
 		<Box sx={CONTENT_STYLES}>
 			<Container sx={CONTAINER_STYLES}>
@@ -20,7 +22,7 @@ function CharacterNewPage() {
 							<CharacterForm
 								title="Create New Character"
 								method="post"
-								id="character-new"
+								id={id}
 							/>
 						</Paper>
 					</Box>

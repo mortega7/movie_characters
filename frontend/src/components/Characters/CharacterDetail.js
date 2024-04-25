@@ -21,7 +21,8 @@ import {
 import { fetchCharacters, fetchMovies } from '../../util/fetch';
 import {
 	AVATAR_STYLES,
-	CHIP_TEXT,
+	CHIP_TEXT_MOVIE,
+	CHIP_TEXT_SERIE,
 	CONTAINER_STYLES,
 	CONTENT_STYLES,
 	DETAILS_DESCRIPTION_STYLES,
@@ -112,7 +113,13 @@ function CharacterDetailPage() {
 														</Typography>
 													</Grid>
 													<Grid item sx={{ width: '100%' }}>
-														<Typography sx={DETAILS_SUBTITLE_STYLES}>
+														<Typography
+															sx={{
+																...DETAILS_SUBTITLE_STYLES,
+																mb: 1,
+																fontWeight: 'bold',
+															}}
+														>
 															Movies / Series
 														</Typography>
 														<Grid container spacing={1} justifyContent="center">
@@ -122,7 +129,12 @@ function CharacterDetailPage() {
 																		<Chip
 																			key={media_character.media_id}
 																			label={media_character.medias.title}
-																			sx={CHIP_TEXT}
+																			sx={
+																				media_character.medias.id_media_type ===
+																				1
+																					? CHIP_TEXT_MOVIE
+																					: CHIP_TEXT_SERIE
+																			}
 																			onClick={() =>
 																				handleGoToMovie(
 																					media_character.media_id
@@ -180,7 +192,10 @@ async function loadMovies() {
 	}
 
 	const resData = await response.json();
-	localStorage.setItem('movies', JSON.stringify(resData.medias));
+	const movies = resData.medias.map((m) => {
+		return { id: m.id, title: m.title };
+	});
+	localStorage.setItem('movies', JSON.stringify(movies));
 	return resData.medias;
 }
 
