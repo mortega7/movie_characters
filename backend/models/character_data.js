@@ -15,7 +15,7 @@ export default class character_data extends Model {
       allowNull: false
     },
     image: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.TEXT,
       allowNull: false
     },
     age: {

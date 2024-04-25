@@ -24,7 +24,7 @@ async function getAll(req, res) {
 	try {
 		const medias = await media.findAll({
 			where,
-      order: [orderInfo],
+			order: [orderInfo],
 			include: [
 				{
 					model: media_character,
@@ -112,8 +112,9 @@ async function create(req, res) {
 	const transaction = await req.sequelize.transaction();
 
 	try {
-		const { character_data, media_character, media } = req.models;
-		const { characterInfo, mediaInfo } = req.body;
+		const { character_data, media_character, media, media_genre, genre } =
+			req.models;
+		const { characterInfo, mediaInfo, genreInfo } = req.body;
 
 		//Create the media
 		const mediaRecord = await media.create(mediaInfo);
@@ -133,6 +134,25 @@ async function create(req, res) {
 				await media_character.create({
 					media_id: characterRecord.id,
 					character_id: mediaRecord.id,
+				});
+			}
+		}
+
+		//Associate the media with every genre selected
+		if (genreInfo) {
+			for (let genreId of genreInfo) {
+				const genreRecord = await genre.findOne({
+					where: { id: genreId },
+				});
+
+				if (!genreRecord) {
+					throw new Error('Genre not found.');
+				}
+
+				//Create the media_genre association
+				await media_genre.create({
+					media_id: mediaRecord.id,
+					genre_id: genreRecord.id,
 				});
 			}
 		}
@@ -157,9 +177,10 @@ async function updateById(req, res) {
 	const transaction = await req.sequelize.transaction();
 
 	try {
-		const { character_data, media_character, media } = req.models;
+		const { character_data, media_character, media, media_genre, genre } =
+			req.models;
 		const { id } = req.params;
-		const { characterInfo, mediaInfo } = req.body;
+		const { characterInfo, mediaInfo, genreInfo } = req.body;
 
 		//Update the media
 		const mediaRecord = await media.findOne({
@@ -191,6 +212,29 @@ async function updateById(req, res) {
 				await media_character.create({
 					media_id: characterRecord.id,
 					character_id: mediaRecord.id,
+				});
+			}
+		}
+
+		//Delete the media_genres
+		await media_genre.destroy({
+			where: { media_id: mediaRecord.id },
+		});
+
+		//Create new media_genre associations
+		if (genreInfo) {
+			for (let genreId of genreInfo) {
+				const genreRecord = await genre.findOne({
+					where: { id: genreId },
+				});
+
+				if (!genreRecord) {
+					throw new Error('Genre not found.');
+				}
+
+				await media_genre.create({
+					media_id: mediaRecord.id,
+					genre_id: genreRecord.id,
 				});
 			}
 		}
