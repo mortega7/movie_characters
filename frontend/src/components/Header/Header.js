@@ -53,6 +53,17 @@ function Header() {
 								<ListItem disablePadding>
 									<ListItemButton
 										sx={{ textAlign: 'center' }}
+										component={Link}
+										href="/characters"
+									>
+										<ListItemText primary="Characters" />
+									</ListItemButton>
+								</ListItem>
+							)}
+							{validToken && (
+								<ListItem disablePadding>
+									<ListItemButton
+										sx={{ textAlign: 'center' }}
 										onClick={() => logout()}
 									>
 										<ListItemText primary="Logout" />
