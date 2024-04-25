@@ -49,7 +49,7 @@ function TableData({ headers, data, message, actions, type = 'characters' }) {
 					<TableCell key={`header-${row.id}-${indexCell}-cell`}>
 						{header.id === 'image' && 
 							<Avatar
-								alt={row.name || "Avatar"}
+								alt={row.name || row.title || "Avatar"}
 								src={row[header.id]}
 								sx={AVATAR_STYLES}
 							/>

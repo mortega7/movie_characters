@@ -7,7 +7,7 @@ import { GRID_STYLES, CONTENT_STYLES } from '../components/Layout/Layout.styles'
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 
-function RootLayout() {
+function RootPage() {
 	const token = useLoaderData();
 	const submit = useSubmit();
 
@@ -47,4 +47,4 @@ function RootLayout() {
 	);
 }
 
-export default RootLayout;
+export default RootPage;

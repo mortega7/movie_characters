@@ -15,6 +15,7 @@ import {
 	STACK_STYLES,
 	TOOLBAR_STYLES,
 	LINK_HOME_STYLE,
+	LIST_ITEM_CENTER,
 } from './Header.styles';
 import { isValidToken } from '../../util/auth';
 import { useSubmit } from 'react-router-dom';
@@ -41,7 +42,7 @@ function Header() {
 							{!validToken && (
 								<ListItem disablePadding>
 									<ListItemButton
-										sx={{ textAlign: 'center' }}
+										sx={LIST_ITEM_CENTER}
 										component={Link}
 										href="/login"
 									>
@@ -52,7 +53,7 @@ function Header() {
 							{validToken && (
 								<ListItem disablePadding>
 									<ListItemButton
-										sx={{ textAlign: 'center' }}
+										sx={LIST_ITEM_CENTER}
 										component={Link}
 										href="/characters"
 									>
@@ -63,7 +64,18 @@ function Header() {
 							{validToken && (
 								<ListItem disablePadding>
 									<ListItemButton
-										sx={{ textAlign: 'center' }}
+										sx={LIST_ITEM_CENTER}
+										component={Link}
+										href="/movies"
+									>
+										<ListItemText primary="Movies" />
+									</ListItemButton>
+								</ListItem>
+							)}
+							{validToken && (
+								<ListItem disablePadding>
+									<ListItemButton
+										sx={LIST_ITEM_CENTER}
 										onClick={() => logout()}
 									>
 										<ListItemText primary="Logout" />

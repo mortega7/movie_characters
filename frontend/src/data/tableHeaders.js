@@ -16,3 +16,22 @@ export const TABLE_HEADER_CHARACTERS = [
 		label: 'Weight',
 	},
 ];
+
+export const TABLE_HEADER_MOVIES = [
+	{
+		id: 'image',
+		label: '',
+	},
+	{
+		id: 'title',
+		label: 'Title',
+	},
+	{
+		id: 'creationDate',
+		label: 'Creation Date',
+	},
+	{
+		id: 'score',
+		label: 'Score',
+	},
+];
