@@ -38,3 +38,25 @@ export async function fetchMovies(params) {
 
 	return response;
 }
+
+export async function fetchGenres(params) {
+	const options = getOptions(params);
+
+	const response = await fetch(
+		`${process.env.REACT_APP_API_URL}/genres${params?.query || ''}`,
+		options
+	);
+
+	return response;
+}
+
+export async function fetchMediaTypes(params) {
+	const options = getOptions(params);
+
+	const response = await fetch(
+		`${process.env.REACT_APP_API_URL}/mediatypes${params?.query || ''}`,
+		options
+	);
+
+	return response;
+}

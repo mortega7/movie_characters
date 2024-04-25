@@ -1,12 +1,12 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import RootLayout from './pages/Root';
+import RootPage from './pages/Root';
+import RootLayout from './pages/RootLayout';
 import ErrorPage from './pages/Error';
 import HomePage from './pages/Home';
 import LoginPage, { action as loginAction } from './pages/Login';
 import { action as logoutAction } from './pages/Logout';
 import { checkAuthLoader, getAuthToken } from './util/auth';
-import CharactersRootLayout from './pages/CharactersRoot';
 import CharactersPage, {
 	loader as charactersLoader,
 } from './components/Characters/CharactersPage';
@@ -15,23 +15,29 @@ import CharacterDetailPage, {
 } from './components/Characters/CharacterDetail';
 import CharacterNewPage from './components/Characters/CharacterNew';
 import CharacterEditPage from './components/Characters/CharacterEdit';
-import {
+import { action as manipulateCharacterAction } from './components/Characters/CharacterForm';
+import MoviesPage, {
 	loader as moviesLoader,
 } from './components/Movies/MoviesPage';
-import { action as manipulateCharacterAction } from './components/Characters/CharacterForm';
+import MovieDetailPage, {
+	loader as movieDetailLoader,
+} from './components/Movies/MovieDetail';
+import MovieNewPage from './components/Movies/MovieNew';
+import MovieEditPage from './components/Movies/MovieEdit';
+import { action as manipulateMovieAction } from './components/Movies/MovieForm';
 
 const router = createBrowserRouter([
 	{
 		id: 'root',
 		path: '/',
-		element: <RootLayout />,
+		element: <RootPage />,
 		errorElement: <ErrorPage />,
 		loader: getAuthToken,
 		children: [
 			{ index: true, element: <HomePage /> },
 			{
 				path: 'characters',
-				element: <CharactersRootLayout />,
+				element: <RootLayout />,
 				loader: checkAuthLoader,
 				children: [
 					{
@@ -62,6 +68,43 @@ const router = createBrowserRouter([
 						id: 'character-new',
 						element: <CharacterNewPage />,
 						action: manipulateCharacterAction,
+						loader: moviesLoader,
+					},
+				],
+			},
+			{
+				path: 'movies',
+				element: <RootLayout />,
+				loader: checkAuthLoader,
+				children: [
+					{
+						index: true,
+						element: <MoviesPage />,
+						loader: moviesLoader,
+					},
+					{
+						path: ':movieId',
+						id: 'movie-detail',
+						children: [
+							{
+								index: true,
+								element: <MovieDetailPage />,
+								loader: movieDetailLoader,
+							},
+							{
+								path: 'edit',
+								id: 'movie-edit',
+								element: <MovieEditPage />,
+								action: manipulateMovieAction,
+								loader: movieDetailLoader,
+							},
+						],
+					},
+					{
+						path: 'new',
+						id: 'movie-new',
+						element: <MovieNewPage />,
+						action: manipulateMovieAction,
 						loader: moviesLoader,
 					},
 				],
