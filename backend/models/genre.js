@@ -15,7 +15,7 @@ export default class genre extends Model {
       allowNull: false
     },
     image: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.TEXT,
       allowNull: false
     }
   }, {

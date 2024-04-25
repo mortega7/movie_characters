@@ -23,7 +23,7 @@ export default class media extends Model {
       allowNull: false
     },
     image: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.TEXT,
       allowNull: false
     },
     creationDate: {
@@ -31,7 +31,7 @@ export default class media extends Model {
       allowNull: false
     },
     score: {
-      type: DataTypes.DOUBLE(3,2),
+      type: DataTypes.DOUBLE(4,2),
       allowNull: false
     }
   }, {
