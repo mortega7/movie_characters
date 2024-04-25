@@ -10,15 +10,25 @@ export const CONTENT_STYLES = {
 
 export const STACK_STYLES = {
 	alignItems: 'center',
+	justifyContent: 'start',
 	gap: {
-		xs: 4,
-		md: 8,
-		lg: 22,
+		xs: 2,
+		md: 3,
+		lg: 4,
 	},
 	textAlign: {
 		xs: 'center',
 		md: 'inherit',
 	},
+};
+
+export const AVATAR_STYLES = {
+	width: { xs: 100, md: 150, lg: 200 },
+	height: { xs: 100, md: 150, lg: 200 },
+	fontSize: '3rem',
+	backgroundColor: 'primary.main',
+	border: '1px solid white',
+	borderColor: 'primary.main',
 };
 
 export const TITLE_STYLES = {
@@ -49,17 +59,31 @@ export const PAPER_STYLES = {
 	width: {
 		xs: 320,
 		sm: 400,
+		md: 500,
+		lg: 700,
 	},
 	padding: (theme) => theme.spacing(5),
 };
 
-export const FORM_TITLE_STYLES = {
+export const DETAILS_TITLE_STYLES = {
 	fontSize: '1.6rem',
 	mb: (theme) => theme.spacing(2.5),
 	textAlign: 'center',
 };
 
-export const FORM_STACK_STYLES = {
+export const DETAILS_SUBTITLE_STYLES = {
+	fontSize: '1rem',
+	textAlign: 'center',
+};
+
+export const DETAILS_DESCRIPTION_STYLES = {
+	fontSize: '1.2rem',
+	mb: (theme) => theme.spacing(2.5),
+	textAlign: 'center',
+	fontWeight: 'bold',
+};
+
+export const DETAILS_STACK_STYLES = {
 	gap: 2,
 };
 
@@ -70,4 +94,16 @@ export const ERROR_STYLE = {
 	fontSize: '1rem',
 	border: '1px solid red',
 	padding: (theme) => theme.spacing(1),
+};
+
+export const CHIP_TEXT = {
+	padding: (theme) => theme.spacing(2.5, 2),
+	borderRadius: '5rem',
+	backgroundColor: 'primary.main',
+	color: 'white',
+	cursor: 'pointer',
+	'&:hover': {
+		backgroundColor: 'primary.main',
+		opacity: 0.8,
+	},
 };

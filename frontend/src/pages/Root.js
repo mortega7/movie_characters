@@ -36,7 +36,7 @@ function RootLayout() {
 			<Grid
 				item
 				container
-				sx={{ ...CONTENT_STYLES, alignItems: 'center' }}
+				sx={{ ...CONTENT_STYLES, alignItems: 'start' }}
 			>
 				<Outlet />
 			</Grid>
