@@ -17,7 +17,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { AVATAR_STYLES, TABLE_HEAD_STYLE, TABLE_STYLES } from './TableData.styles';
 
-function TableData({ headers, data, message, actions, type = 'characters' }) {
+function TableData({ headers, data, message, actions }) {
 	const actionsDictionary = {
 		view: (id, action) => (
 			<IconButton key={`view-${id}`} onClick={() => action(id)}>

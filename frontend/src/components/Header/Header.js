@@ -33,7 +33,7 @@ function Header() {
 			<AppBar>
 				<Toolbar variant="regular" sx={TOOLBAR_STYLES}>
 					<Stack sx={STACK_STYLES}>
-						<Typography variant="h6" sx={{ my: 2 }}>
+						<Typography>
 							<Link href="/" sx={LINK_HOME_STYLE}>
 								Movies Universe
 							</Link>
@@ -69,6 +69,17 @@ function Header() {
 										href="/movies"
 									>
 										<ListItemText primary="Movies" />
+									</ListItemButton>
+								</ListItem>
+							)}
+							{validToken && (
+								<ListItem disablePadding>
+									<ListItemButton
+										sx={LIST_ITEM_CENTER}
+										component={Link}
+										href="/genres"
+									>
+										<ListItemText primary="Genres" />
 									</ListItemButton>
 								</ListItem>
 							)}

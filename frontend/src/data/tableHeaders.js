@@ -35,3 +35,15 @@ export const TABLE_HEADER_MOVIES = [
 		label: 'Score',
 	},
 ];
+
+export const TABLE_HEADER_GENRES = [
+	{
+		id: 'image',
+		label: '',
+	},
+	{
+		id: 'name',
+		label: 'Name',
+	},
+];
+

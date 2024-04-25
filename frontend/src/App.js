@@ -25,6 +25,12 @@ import MovieDetailPage, {
 import MovieNewPage from './components/Movies/MovieNew';
 import MovieEditPage from './components/Movies/MovieEdit';
 import { action as manipulateMovieAction } from './components/Movies/MovieForm';
+import GenresPage, {
+	loader as genresLoader,
+} from './components/Genres/GenresPage';
+import GenreDetailPage, {
+	loader as genreDetailLoader,
+} from './components/Genres/GenreDetail';
 
 const router = createBrowserRouter([
 	{
@@ -106,6 +112,23 @@ const router = createBrowserRouter([
 						element: <MovieNewPage />,
 						action: manipulateMovieAction,
 						loader: moviesLoader,
+					},
+				],
+			},
+			{
+				path: 'genres',
+				element: <RootLayout />,
+				loader: checkAuthLoader,
+				children: [
+					{
+						index: true,
+						element: <GenresPage />,
+						loader: genresLoader,
+					},
+					{
+						path: ':genreId',
+						element: <GenreDetailPage />,
+						loader: genreDetailLoader,
 					},
 				],
 			},
