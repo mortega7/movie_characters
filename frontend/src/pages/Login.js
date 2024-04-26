@@ -1,8 +1,9 @@
+import { useEffect } from 'react';
 import { json, redirect, useNavigate } from 'react-router-dom';
 
 import LoginForm from '../components/Login/LoginForm';
 import { isValidToken, setAuthToken } from '../util/auth';
-import { useEffect } from 'react';
+import { fetchLogin } from '../util/fetch';
 
 function LoginPage() {
 	const validToken = isValidToken();
@@ -26,13 +27,7 @@ export async function action({ request }) {
 		password: data.get('password'),
 	};
 
-	const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(authData),
-	});
+	const response = await fetchLogin({ method: 'POST', body: authData, noToken: true });
 
 	if (response.status === 422 || response.status === 401) {
 		return response;
