@@ -26,7 +26,6 @@ export const AVATAR_STYLES = {
 	width: { xs: 100, md: 150, lg: 200 },
 	height: { xs: 100, md: 150, lg: 200 },
 	fontSize: '3rem',
-	backgroundColor: 'primary.main',
 	border: '1px solid white',
 	borderColor: 'primary.main',
 };
@@ -72,12 +71,18 @@ export const DETAILS_TITLE_STYLES = {
 };
 
 export const DETAILS_SUBTITLE_STYLES = {
-	fontSize: '1rem',
+	fontSize: {
+		xs: '0.8rem',
+		md: '1rem',
+	},
 	textAlign: 'center',
 };
 
 export const DETAILS_DESCRIPTION_STYLES = {
-	fontSize: '1.2rem',
+	fontSize: {
+		xs: '1rem',
+		md: '1.2rem',
+	},
 	mb: (theme) => theme.spacing(2.5),
 	textAlign: 'center',
 	fontWeight: 'bold',
@@ -97,7 +102,8 @@ export const ERROR_STYLE = {
 };
 
 export const CHIP_TEXT = {
-	padding: (theme) => theme.spacing(2.5, 2),
+	px: { xs: 1, md: 2 },
+	py: { xs: 1.5, md: 2.5 },
 	borderRadius: '5rem',
 	backgroundColor: 'primary.main',
 	color: 'white',
@@ -106,4 +112,20 @@ export const CHIP_TEXT = {
 		backgroundColor: 'primary.main',
 		opacity: 0.8,
 	},
+};
+
+export const CHIP_TEXT_MOVIE = {
+	padding: (theme) => theme.spacing(2, 2),
+	borderRadius: '5rem',
+	backgroundColor: 'primary.main',
+	color: 'white',
+	fontWeight: 'normal',
+};
+
+export const CHIP_TEXT_SERIE = {
+	padding: (theme) => theme.spacing(2, 2),
+	borderRadius: '5rem',
+	backgroundColor: 'secondary.main',
+	color: 'white',
+	fontWeight: 'normal',
 };

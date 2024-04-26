@@ -5,6 +5,8 @@ import {
 	CardMedia,
 	Grid,
 	IconButton,
+	Rating,
+	Stack,
 	Typography,
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -23,7 +25,7 @@ import {
 	VIEW_BUTTON_STYLES,
 } from './GridData.styles';
 
-function GridData({ loadedData, actions }) {
+function GridData({ loadedData, actions, type = 'characters' }) {
 	const actionsDictionary = {
 		view: (id, action) => (
 			<IconButton key={`view-${id}`} onClick={() => action(id)}>
@@ -65,6 +67,11 @@ function GridData({ loadedData, actions }) {
 							<Typography variant="h5" sx={CARD_HEADER_STYLES}>
 								{data.name || data.title}
 							</Typography>
+							{type === 'movies' && data.score && (
+								<Stack direction="row">
+									<Rating value={data.score} readOnly />
+								</Stack>
+							)}
 						</CardContent>
 						{actions && (
 							<CardActions sx={CARD_ACTIONS_STYLES}>

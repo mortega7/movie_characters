@@ -10,10 +10,12 @@ import {
 	Autocomplete,
 	Button,
 	Container,
+	Divider,
 	Grid,
 	MenuItem,
 	Stack,
 	TextField,
+	Typography,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
@@ -23,15 +25,23 @@ import {
 	AUTOCOMPLETE_MOVIE_STYLE,
 	AUTOCOMPLETE_TYPE_STYLE,
 	BUTTON_CLEAR,
+	BUTTON_CREATE,
 	CONTAINER_STYLES,
+	DIVIDER_STYLES,
 	FILTER_STYLES,
 	STACK_STYLES,
 	STACK_STYLES_FILTER,
+	TEXTFIELD_FILTER_STYLE,
+	TITLE_STYLES,
 } from './MoviesPage.styles';
-import { fetchCharacters, fetchGenres, fetchMediaTypes, fetchMovies } from '../../util/fetch';
+import {
+	fetchCharacters,
+	fetchGenres,
+	fetchMediaTypes,
+	fetchMovies,
+} from '../../util/fetch';
 import { FILTER_MOVIE_OPTIONS } from '../../data/filters';
-import TableData from '../Layout/TableData';
-import { TABLE_HEADER_MOVIES } from '../../data/tableHeaders';
+import GridData from '../Layout/GridData';
 
 function MoviesPage() {
 	const [valueFilter, setValueFilter] = useState(null);
@@ -128,12 +138,15 @@ function MoviesPage() {
 
 	return (
 		<Container sx={CONTAINER_STYLES}>
+			<Typography sx={TITLE_STYLES}>Movies</Typography>
+			<Divider sx={DIVIDER_STYLES} />
 			<Grid container sx={STACK_STYLES} spacing={1}>
 				<Grid item>
 					<Button
 						variant="contained"
 						startIcon={<AddIcon />}
 						onClick={handleNewMovie}
+						sx={BUTTON_CREATE}
 					>
 						Create movie
 					</Button>
@@ -169,6 +182,7 @@ function MoviesPage() {
 										size="small"
 										value={valueText}
 										onChange={(e) => setValueText(e.target.value)}
+										sx={TEXTFIELD_FILTER_STYLE}
 									/>
 								</Grid>
 							)}
@@ -208,6 +222,7 @@ function MoviesPage() {
 										size="small"
 										value={valueCreationDate}
 										onChange={(e) => setValueCreationDate(e.target.value)}
+										sx={AUTOCOMPLETE_TYPE_STYLE}
 									>
 										<MenuItem value="ASC">ASC</MenuItem>
 										<MenuItem value="DESC">DESC</MenuItem>
@@ -237,17 +252,13 @@ function MoviesPage() {
 					</Stack>
 				</Grid>
 			</Grid>
-			<Suspense
-				fallback={
-					<TableData headers={TABLE_HEADER_MOVIES} message="Loading..." />
-				}
-			>
+			<Suspense fallback={<Typography paragraph>Loading...</Typography>}>
 				<Await resolve={moviesData ?? movies}>
 					{(loadedMovies) => (
-						<TableData
-							headers={TABLE_HEADER_MOVIES}
-							data={loadedMovies}
+						<GridData
+							loadedData={loadedMovies}
 							actions={movieActions}
+							type="movies"
 						/>
 					)}
 				</Await>
