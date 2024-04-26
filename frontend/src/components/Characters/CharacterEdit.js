@@ -1,3 +1,4 @@
+import { useRouteLoaderData } from 'react-router-dom';
 import { Box, Container, Paper, Stack } from '@mui/material';
 
 import {
@@ -6,9 +7,8 @@ import {
 	PAPER_STYLES,
 	STACK_STYLES,
 } from './CharacterDetail.styles';
-import GoBackButton from '../Layout/GoBackButton';
+import GoToButton from '../Layout/GoToButton';
 import CharacterForm from './CharacterForm';
-import { useRouteLoaderData } from 'react-router-dom';
 
 function CharacterEditPage() {
 	const id = 'character-edit';
@@ -18,7 +18,14 @@ function CharacterEditPage() {
 		<Box sx={CONTENT_STYLES}>
 			<Container sx={CONTAINER_STYLES}>
 				<Stack sx={STACK_STYLES}>
-					<GoBackButton text="Return to Characters" url="/characters" />
+					<Stack direction={'row'} justifyContent="space-between" spacing={2}>
+						<GoToButton text="Return to Characters" url="/characters" />
+						<GoToButton
+							text="View character"
+							url={`/characters/${data.character.id}`}
+							type="view"
+						/>
+					</Stack>
 					<Box>
 						<Paper elevation={4} sx={PAPER_STYLES}>
 							<CharacterForm
@@ -29,7 +36,7 @@ function CharacterEditPage() {
 							/>
 						</Paper>
 					</Box>
-					<GoBackButton text="Return to Characters" url="/characters" />
+					<GoToButton text="Return to Characters" url="/characters" />
 				</Stack>
 			</Container>
 		</Box>

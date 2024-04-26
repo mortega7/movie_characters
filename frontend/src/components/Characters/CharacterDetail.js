@@ -32,7 +32,7 @@ import {
 	PAPER_STYLES,
 	STACK_STYLES,
 } from './CharacterDetail.styles';
-import GoBackButton from '../Layout/GoBackButton';
+import GoToButton from '../Layout/GoToButton';
 
 function CharacterDetailPage() {
 	const { character } = useLoaderData();
@@ -46,7 +46,14 @@ function CharacterDetailPage() {
 		<Box sx={CONTENT_STYLES}>
 			<Container sx={CONTAINER_STYLES}>
 				<Stack sx={STACK_STYLES}>
-					<GoBackButton text="Return to Characters" url="/characters" />
+					<Stack direction={'row'} justifyContent="space-between" spacing={2}>
+						<GoToButton text="Return to Characters" url="/characters" />
+						<GoToButton
+							text="Edit character"
+							url={`/characters/${character.id}/edit`}
+							type="edit"
+						/>
+					</Stack>
 					<Box>
 						<Paper elevation={4} sx={PAPER_STYLES}>
 							<Suspense>
@@ -126,21 +133,23 @@ function CharacterDetailPage() {
 															{loadedCharacter.media_characters.map(
 																(media_character) => (
 																	<Grid item key={media_character.media_id}>
-																		<Chip
-																			key={media_character.media_id}
-																			label={media_character.medias.title}
-																			sx={
-																				media_character.medias.id_media_type ===
-																				1
-																					? CHIP_TEXT_MOVIE
-																					: CHIP_TEXT_SERIE
-																			}
-																			onClick={() =>
-																				handleGoToMovie(
-																					media_character.media_id
-																				)
-																			}
-																		/>
+																		{media_character.medias && (
+																			<Chip
+																				key={media_character.media_id}
+																				label={media_character.medias.title}
+																				sx={
+																					media_character.medias
+																						.id_media_type === 1
+																						? CHIP_TEXT_MOVIE
+																						: CHIP_TEXT_SERIE
+																				}
+																				onClick={() =>
+																					handleGoToMovie(
+																						media_character.media_id
+																					)
+																				}
+																			/>
+																		)}
 																	</Grid>
 																)
 															)}
@@ -154,7 +163,7 @@ function CharacterDetailPage() {
 							</Suspense>
 						</Paper>
 					</Box>
-					<GoBackButton text="Return to Characters" url="/characters" />
+					<GoToButton text="Return to Characters" url="/characters" />
 				</Stack>
 			</Container>
 		</Box>

@@ -32,7 +32,7 @@ import {
 	PAPER_STYLES,
 	STACK_STYLES,
 } from './GenreDetail.styles';
-import GoBackButton from '../Layout/GoBackButton';
+import GoToButton from '../Layout/GoToButton';
 
 function GenreDetailPage() {
 	const { genre } = useLoaderData();
@@ -46,7 +46,7 @@ function GenreDetailPage() {
 		<Box sx={CONTENT_STYLES}>
 			<Container sx={CONTAINER_STYLES}>
 				<Stack sx={STACK_STYLES}>
-					<GoBackButton text="Return to Genres" url="/genres" />
+					<GoToButton text="Return to Genres" url="/genres" />
 					<Box>
 						<Paper elevation={4} sx={PAPER_STYLES}>
 							<Suspense>
@@ -90,17 +90,27 @@ function GenreDetailPage() {
 															Movies / Series
 														</Typography>
 														<Grid container spacing={1} justifyContent="center">
-                              {loadedGenre.media_genres.length === 0 && <Typography>No movies for this genre.</Typography>}
+															{loadedGenre.media_genres.length === 0 && (
+																<Typography>
+																	No movies for this genre.
+																</Typography>
+															)}
 															{loadedGenre.media_genres.map((movie) => (
 																<Grid item key={movie.media_id}>
-																	<Chip
-																		key={movie.media_id}
-																		label={movie.medias.title}
-																		sx={movie.medias.id_media_type === 1 ? CHIP_TEXT_MOVIE : CHIP_TEXT_SERIE}
-																		onClick={() =>
-																			handleGoToMovie(movie.media_id)
-																		}
-																	/>
+																	{movie.medias && (
+																		<Chip
+																			key={movie.media_id}
+																			label={movie.medias.title}
+																			sx={
+																				movie.medias.id_media_type === 1
+																					? CHIP_TEXT_MOVIE
+																					: CHIP_TEXT_SERIE
+																			}
+																			onClick={() =>
+																				handleGoToMovie(movie.media_id)
+																			}
+																		/>
+																	)}
 																</Grid>
 															))}
 														</Grid>
@@ -113,7 +123,7 @@ function GenreDetailPage() {
 							</Suspense>
 						</Paper>
 					</Box>
-					<GoBackButton text="Return to Genres" url="/genres" />
+					<GoToButton text="Return to Genres" url="/genres" />
 				</Stack>
 			</Container>
 		</Box>
@@ -135,7 +145,6 @@ async function loadGenre(id) {
 	}
 
 	const resData = await response.json();
-	console.log(resData.genre);
 	return resData.genre;
 }
 
