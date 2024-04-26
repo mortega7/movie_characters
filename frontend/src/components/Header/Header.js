@@ -1,3 +1,4 @@
+import { useSubmit } from 'react-router-dom';
 import {
 	AppBar,
 	Link,
@@ -18,7 +19,6 @@ import {
 	LIST_ITEM_CENTER,
 } from './Header.styles';
 import { isValidToken } from '../../util/auth';
-import { useSubmit } from 'react-router-dom';
 
 function Header() {
 	const validToken = isValidToken();
