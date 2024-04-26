@@ -1,61 +1,61 @@
-import { redirect } from "react-router-dom";
+import { redirect } from 'react-router-dom';
 
 export function getTokenDuration() {
-  const storedExpirationDate = localStorage.getItem("tokenExpiration");
-  const expirationDate = new Date(storedExpirationDate);
-  const now = new Date();
-  const duration = expirationDate.getTime() - now.getTime();
-  return duration;
+	const storedExpirationDate = localStorage.getItem('tokenExpiration');
+	const expirationDate = new Date(storedExpirationDate);
+	const now = new Date();
+	const duration = expirationDate.getTime() - now.getTime();
+	return duration;
 }
 
 export function setAuthToken(token) {
-  const tokenExpiration = new Date();
-  tokenExpiration.setHours(tokenExpiration.getHours() + 1);
+	const tokenExpiration = new Date();
+	tokenExpiration.setHours(tokenExpiration.getHours() + 2);
 
-  localStorage.setItem("token", token);
-  localStorage.setItem("tokenExpiration", tokenExpiration);
+	localStorage.setItem('token', token);
+	localStorage.setItem('tokenExpiration', tokenExpiration);
 }
 
 export function getAuthToken() {
-  const token = localStorage.getItem("token");
-  
-  if (!token) {
-    return null;
-  } 
-  
-  const tokenDuration = getTokenDuration();
-  if (tokenDuration < 0) {
-    return "EXPIRED_TOKEN";
-  }
+	const token = localStorage.getItem('token');
 
-  return token;
+	if (!token) {
+		return null;
+	}
+
+	const tokenDuration = getTokenDuration();
+	if (tokenDuration < 0) {
+		return 'EXPIRED_TOKEN';
+	}
+
+	return token;
 }
 
 export function isValidToken() {
-  const token = getAuthToken();
-  
-  if (!token) {
-    return false;
-  }
+	const token = getAuthToken();
 
-  if(token === "EXPIRED_TOKEN") {
-    return false;
-  }
+	if (!token) {
+		return false;
+	}
 
-  return true;
+	if (token === 'EXPIRED_TOKEN') {
+		return false;
+	}
+
+	return true;
 }
 
 export function removeAuthToken() {
-  localStorage.removeItem("token");
-  localStorage.removeItem("tokenExpiration");
+	localStorage.removeItem('token');
+	localStorage.removeItem('tokenExpiration');
 }
 
 export function checkAuthLoader() {
-  const token = getAuthToken();
+	const token = getAuthToken();
 
-  if (!token) {
-    return redirect("/login");
-  }
+	if (!token) {
+		return redirect('/login');
+	}
 
-  return null;
+	return null;
 }

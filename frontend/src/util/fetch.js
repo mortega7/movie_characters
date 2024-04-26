@@ -1,20 +1,38 @@
 import { getAuthToken } from './auth';
 
 function getOptions(params) {
-	const token = getAuthToken();
 	const options = {
 		method: params?.method || 'GET',
-		headers: {
+	};
+
+	if (params?.noToken) {
+		options.headers = {
+			'Content-Type': 'application/json',
+		};
+	} else {
+		const token = getAuthToken();
+		options.headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Bearer ${token}`,
-		},
-	};
+		};
+	}
 
 	if (params?.body) {
 		options.body = JSON.stringify(params.body);
 	}
 
 	return options;
+}
+
+export async function fetchLogin(params) {
+	const options = getOptions(params);
+
+	const response = await fetch(
+		`${process.env.REACT_APP_API_URL}/auth/login`,
+		options
+	);
+
+	return response;
 }
 
 export async function fetchCharacters(params) {
