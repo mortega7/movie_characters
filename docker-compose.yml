@@ -1,0 +1,72 @@
+version: '3'
+name: movie-characters
+
+services:
+  frontend:
+    container_name: 'movie-characters-frontend'
+    build:
+      context: ./frontend
+    ports:
+      - '3000:3000'
+    networks:
+      - movie_characters_test
+
+  backend:
+    container_name: 'movie-characters-backend'
+    build:
+      context: ./backend
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db_server_movies
+    networks:
+      - movie_characters_test
+
+  db_server_movies:
+    image: mysql:latest
+    container_name: 'movie-characters-mysql'
+    restart: always
+    tty: true
+    environment:
+      TZ: '${TZ}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_USER: '${DB_USER}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql_dump:/docker-entrypoint-initdb.d
+    command: ['mysqld', '--character-set-server=${DB_CHARSET}', '--collation-server=${DB_COLLATION}']
+    ports:
+      - '${DB_PORT}:${DB_PORT}'
+    healthcheck:
+      test: mysqladmin ping -h ${DB_HOST} -u root --password=
+      interval: 5s
+      retries: 5
+    networks:
+      - movie_characters_test
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5
+    container_name: 'movie-characters-phpmyadmin'
+    ports:
+      - "8102:80"
+    environment:
+      PMA_HOST: db_server_movies
+    depends_on:
+      - db_server_movies
+    volumes:
+      - db_admin_data:/var/www/html
+    networks:
+      - movie_characters_test
+
+networks:
+  movie_characters_test:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local
+  db_admin_data:
+    driver: local
