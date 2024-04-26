@@ -6,7 +6,7 @@ import {
 	PAPER_STYLES,
 	STACK_STYLES,
 } from './CharacterDetail.styles';
-import GoBackButton from '../Layout/GoBackButton';
+import GoToButton from '../Layout/GoToButton';
 import CharacterForm from './CharacterForm';
 
 function CharacterNewPage() {
@@ -16,7 +16,7 @@ function CharacterNewPage() {
 		<Box sx={CONTENT_STYLES}>
 			<Container sx={CONTAINER_STYLES}>
 				<Stack sx={STACK_STYLES}>
-					<GoBackButton text="Return to Characters" url="/characters" />
+					<GoToButton text="Return to Characters" url="/characters" />
 					<Box>
 						<Paper elevation={4} sx={PAPER_STYLES}>
 							<CharacterForm
@@ -26,7 +26,7 @@ function CharacterNewPage() {
 							/>
 						</Paper>
 					</Box>
-					<GoBackButton text="Return to Characters" url="/characters" />
+					<GoToButton text="Return to Characters" url="/characters" />
 				</Stack>
 			</Container>
 		</Box>

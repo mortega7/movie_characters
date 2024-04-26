@@ -39,7 +39,9 @@ function CharacterForm({ method, title, character, id }) {
 		if (character) {
 			const names = [];
 			character.media_characters.map((media) => {
-				names.push(media.medias.title);
+				if (media.medias) {
+					names.push(media.medias.title);
+				}
 				return true;
 			});
 			setMovieNames(names);
