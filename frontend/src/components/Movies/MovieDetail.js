@@ -28,6 +28,8 @@ import {
 import {
 	AVATAR_STYLES,
 	CHIP_TEXT,
+	CHIP_TEXT_MOVIE,
+	CHIP_TEXT_SERIE,
 	CONTAINER_STYLES,
 	CONTENT_STYLES,
 	DETAILS_DESCRIPTION_STYLES,
@@ -37,7 +39,7 @@ import {
 	PAPER_STYLES,
 	STACK_STYLES,
 } from './MovieDetail.styles';
-import GoBackButton from '../Layout/GoBackButton';
+import GoToButton from '../Layout/GoToButton';
 
 function MovieDetailPage() {
 	const { movie } = useLoaderData();
@@ -55,7 +57,14 @@ function MovieDetailPage() {
 		<Box sx={CONTENT_STYLES}>
 			<Container sx={CONTAINER_STYLES}>
 				<Stack sx={STACK_STYLES}>
-					<GoBackButton text="Return to Movies" url="/movies" />
+					<Stack direction={'row'} justifyContent="space-between" spacing={2}>
+						<GoToButton text="Return to Movies" url="/movies" />
+						<GoToButton
+							text="Edit movie"
+							url={`/movies/${movie.id}/edit`}
+							type="edit"
+						/>
+					</Stack>
 					<Box>
 						<Paper elevation={4} sx={PAPER_STYLES}>
 							<Suspense>
@@ -103,12 +112,16 @@ function MovieDetailPage() {
 														<Typography sx={DETAILS_SUBTITLE_STYLES}>
 															Type
 														</Typography>
-														<Typography
-															sx={DETAILS_DESCRIPTION_STYLES}
-															gutterBottom
-														>
-															{loadedMovie.media_types.name}
-														</Typography>
+														<Stack direction="row" justifyContent="center">
+															<Chip
+																label={loadedMovie.media_types.name}
+																sx={
+																	loadedMovie.id_media_type === 1
+																		? CHIP_TEXT_MOVIE
+																		: CHIP_TEXT_SERIE
+																}
+															/>
+														</Stack>
 													</Grid>
 													<Grid item sx={{ width: '100%' }}>
 														<Typography
@@ -141,16 +154,18 @@ function MovieDetailPage() {
 															{loadedMovie.media_characters.map(
 																(media_character) => (
 																	<Grid item key={media_character.character_id}>
-																		<Chip
-																			key={media_character.character_id}
-																			label={media_character.character.name}
-																			sx={CHIP_TEXT}
-																			onClick={() =>
-																				handleGoToCharacter(
-																					media_character.character_id
-																				)
-																			}
-																		/>
+																		{media_character.character && (
+																			<Chip
+																				key={media_character.character_id}
+																				label={media_character.character.name}
+																				sx={CHIP_TEXT}
+																				onClick={() =>
+																					handleGoToCharacter(
+																						media_character.character_id
+																					)
+																				}
+																			/>
+																		)}
 																	</Grid>
 																)
 															)}
@@ -169,14 +184,16 @@ function MovieDetailPage() {
 														<Grid container spacing={1} justifyContent="center">
 															{loadedMovie.media_genres.map((media_genre) => (
 																<Grid item key={media_genre.genre_id}>
-																	<Chip
-																		key={media_genre.genre_id}
-																		label={media_genre.genre.name}
-																		sx={CHIP_TEXT}
-																		onClick={() =>
-																			handleGoToGenre(media_genre.genre_id)
-																		}
-																	/>
+																	{media_genre.genre && (
+																		<Chip
+																			key={media_genre.genre_id}
+																			label={media_genre.genre.name}
+																			sx={CHIP_TEXT}
+																			onClick={() =>
+																				handleGoToGenre(media_genre.genre_id)
+																			}
+																		/>
+																	)}
 																</Grid>
 															))}
 														</Grid>
@@ -189,7 +206,7 @@ function MovieDetailPage() {
 							</Suspense>
 						</Paper>
 					</Box>
-					<GoBackButton text="Return to Movies" url="/movies" />
+					<GoToButton text="Return to Movies" url="/movies" />
 				</Stack>
 			</Container>
 		</Box>
@@ -211,6 +228,16 @@ async function loadMovie(id) {
 	}
 
 	const resData = await response.json();
+
+	if (!resData.medias) {
+		throw json(
+			{ message: 'Resource not found.' },
+			{
+				status: 404,
+			}
+		);
+	}
+
 	return resData.medias;
 }
 

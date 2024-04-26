@@ -13,6 +13,13 @@ export const STACK_STYLES = {
 	},
 };
 
+export const BUTTON_CREATE = {
+	mb: {
+		xs: 2,
+		sm: 0,
+	},
+};
+
 export const STACK_STYLES_FILTER = {
 	flexDirection: 'row',
 	justifyContent: 'space-between',
@@ -29,12 +36,33 @@ export const FILTER_STYLES = {
 	gap: 2,
 };
 
+export const TEXTFIELD_FILTER_STYLE = {
+	width: {
+		xs: 150,
+		md: 200,
+		lg: 300,
+	},
+};
+
+export const SELECT_ORDER_FILTER_STYLE = {
+	width: {
+		xs: 150,
+		md: 200,
+	},
+};
+
 export const AUTOCOMPLETE_TYPE_STYLE = {
-	width: 150,
+	width: {
+		xs: 150,
+		md: 200,
+	},
 };
 
 export const AUTOCOMPLETE_MOVIE_STYLE = {
-	width: 300,
+	width: {
+		xs: 150,
+		md: 200,
+	},
 };
 
 export const BUTTON_CLEAR = {
@@ -52,4 +80,15 @@ export const ERROR_STYLE = {
 	fontSize: '1rem',
 	border: '1px solid red',
 	padding: (theme) => theme.spacing(1),
+};
+
+export const TITLE_STYLES = {
+	fontSize: '1.6rem',
+	mb: (theme) => theme.spacing(2.5),
+	textAlign: 'center',
+	fontWeight: '500',
+};
+
+export const DIVIDER_STYLES = {
+	mb: 3,
 };

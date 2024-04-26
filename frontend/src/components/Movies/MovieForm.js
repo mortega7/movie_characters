@@ -44,14 +44,18 @@ function MovieForm({ method, title, movie, id }) {
 		if (movie) {
 			const names = [];
 			movie.media_characters.map((media) => {
-				names.push(media.character.name);
+				if (media.character) {
+					names.push(media.character.name);
+				}
 				return true;
 			});
 			setCharacterNames(names);
 
 			const genres = [];
 			movie.media_genres.map((media) => {
-				genres.push(media.genre.name);
+				if (media.genre) {
+					genres.push(media.genre.name);
+				}
 				return true;
 			});
 			setGenreNames(genres);

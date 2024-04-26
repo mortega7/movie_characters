@@ -1,3 +1,4 @@
+import { useRouteLoaderData } from 'react-router-dom';
 import { Box, Container, Paper, Stack } from '@mui/material';
 
 import {
@@ -6,9 +7,8 @@ import {
 	PAPER_STYLES,
 	STACK_STYLES,
 } from './MovieDetail.styles';
-import GoBackButton from '../Layout/GoBackButton';
+import GoToButton from '../Layout/GoToButton';
 import MovieForm from './MovieForm';
-import { useRouteLoaderData } from 'react-router-dom';
 
 function MovieEditPage() {
 	const id = 'movie-edit';
@@ -18,7 +18,14 @@ function MovieEditPage() {
 		<Box sx={CONTENT_STYLES}>
 			<Container sx={CONTAINER_STYLES}>
 				<Stack sx={STACK_STYLES}>
-					<GoBackButton text="Return to Movies" url="/movies" />
+					<Stack direction={'row'} justifyContent="space-between" spacing={2}>
+						<GoToButton text="Return to Movies" url="/movies" />
+						<GoToButton
+							text="View movie"
+							url={`/movies/${data.movie.id}`}
+							type="view"
+						/>
+					</Stack>
 					<Box>
 						<Paper elevation={4} sx={PAPER_STYLES}>
 							<MovieForm
@@ -29,7 +36,7 @@ function MovieEditPage() {
 							/>
 						</Paper>
 					</Box>
-					<GoBackButton text="Return to Movies" url="/movies" />
+					<GoToButton text="Return to Movies" url="/movies" />
 				</Stack>
 			</Container>
 		</Box>
